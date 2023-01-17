@@ -738,6 +738,8 @@ pub mod pallet {
 	#[pallet::hooks]
 	impl<T: Config> Hooks<BlockNumberFor<T>> for Pallet<T> {
 		fn on_initialize(now: T::BlockNumber) -> Weight {
+
+
 			let next_election = T::DataProvider::next_election_prediction(now).max(now);
 
 			let signed_deadline = T::SignedPhase::get() + T::UnsignedPhase::get();
@@ -747,8 +749,8 @@ pub mod pallet {
 			let current_phase = Self::current_phase();
 
 			log!(
-				trace,
-				"current phase {:?}, next election {:?}, metadata: {:?}",
+				info,
+				"current phase! {:?}, next election {:?}, metadata: {:?}",
 				current_phase,
 				next_election,
 				Self::snapshot_metadata()
